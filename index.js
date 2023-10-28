@@ -28,8 +28,14 @@ app.post('/add', async (request, response) => {
 
 // POST endpoint handling the creation of a new TODO item
 app.post('/insert', async (request, response) => {
-    let todo2 = new TODO(request.body);
-    response.status(201).send(todo2);
+    try {
+        let data = new TODO(request.body);
+        let result = await data.save({ wtimeout: 25000 });
+        response.status(201).send(data);
+    } catch (error) {
+        console.error(error);
+        response.status(500).send('An error occurred while inserting data.');
+    }
 });
 
 // to parse the created date
