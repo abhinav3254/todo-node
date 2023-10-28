@@ -22,7 +22,14 @@ app.post('/add', async (request, response) => {
         completed: request.body.completed,
         created_at: Date.now()
     }
+    // let result = Todo.save();
     response.status(201).send(Todo);
+});
+
+// POST endpoint handling the creation of a new TODO item
+app.post('/insert', async (request, response) => {
+    let todo2 = new TODO(request.body);
+    response.status(201).send(todo2);
 });
 
 // to parse the created date
